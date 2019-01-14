@@ -24,3 +24,16 @@ Also there is another workaround for a missing feature https://github.com/react-
 ## LICENSE
 
 MIT
+## code-push 的 Deployment Key
+
+#### Android 平台
+
+- 推送命令 code-push release-react AndroiDvaDemo android -m -d Staging
+- Production
+- Staging
+
+#### iOS 平台
+
+- 推送命令 code-push release-react iOSRNDvaDemo ios -m -d Staging
+- Production
+- Staging
