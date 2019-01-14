@@ -3,12 +3,12 @@ import { BackHandler, Animated, Easing } from 'react-native'
 import {
   createStackNavigator,
   createBottomTabNavigator,
-  NavigationActions
+  NavigationActions,
 } from 'react-navigation'
 import {
   reduxifyNavigator,
   createReactNavigationReduxMiddleware,
-  createNavigationReducer
+  createNavigationReducer,
 } from 'react-navigation-redux-helpers'
 import { connect } from 'react-redux'
 import codePush from 'react-native-code-push'
@@ -20,43 +20,43 @@ import Detail from './containers/Detail'
 
 const HomeNavigator = createBottomTabNavigator({
   Home: { screen: Home },
-  Account: { screen: Account }
+  Account: { screen: Account },
 })
 
 HomeNavigator.navigationOptions = ({ navigation }) => {
   const { routeName } = navigation.state.routes[navigation.state.index]
 
   return {
-    headerTitle: routeName
+    headerTitle: routeName,
   }
 }
 
 const MainNavigator = createStackNavigator(
   {
     HomeNavigator: { screen: HomeNavigator },
-    Detail: { screen: Detail }
+    Detail: { screen: Detail },
   },
   {
-    headerMode: 'float'
+    headerMode: 'float',
   }
 )
 
 const AppNavigator = createStackNavigator(
   {
     Main: { screen: MainNavigator },
-    Login: { screen: Login }
+    Login: { screen: Login },
   },
   {
     headerMode: 'none',
     mode: 'modal',
     navigationOptions: {
-      gesturesEnabled: false
+      gesturesEnabled: false,
     },
     transitionConfig: () => ({
       transitionSpec: {
         duration: 300,
         easing: Easing.out(Easing.poly(4)),
-        timing: Animated.timing
+        timing: Animated.timing,
       },
       screenInterpolator: sceneProps => {
         const { layout, position, scene } = sceneProps
@@ -65,17 +65,17 @@ const AppNavigator = createStackNavigator(
         const height = layout.initHeight
         const translateY = position.interpolate({
           inputRange: [index - 1, index, index + 1],
-          outputRange: [height, 0, 0]
+          outputRange: [height, 0, 0],
         })
 
         const opacity = position.interpolate({
           inputRange: [index - 1, index - 0.99, index],
-          outputRange: [0, 1, 1]
+          outputRange: [0, 1, 1],
         })
 
         return { opacity, transform: [{ translateY }] }
-      }
-    })
+      },
+    }),
   }
 )
 
@@ -132,7 +132,7 @@ class Router extends PureComponent {
 Router = codePush(
   {
     checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
-    installMode: codePush.InstallMode.ON_NEXT_RESUME
+    installMode: codePush.InstallMode.ON_NEXT_RESUME,
     // updateDialog: {
     //   appendReleaseDescription: true,
 
