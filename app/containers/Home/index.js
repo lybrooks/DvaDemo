@@ -2,30 +2,30 @@ import React, { Component } from 'react'
 import { StyleSheet, View, Image } from 'react-native'
 import { connect } from 'react-redux'
 
-import { Button } from '../components'
+import { Button } from '../../components'
 
-import { NavigationActions } from '../utils'
+import { NavigationActions } from '../../utils'
 
 @connect()
-class Detail extends Component {
+class Home extends Component {
   static navigationOptions = {
-    tabBarLabel: 'Detail',
+    tabBarLabel: 'Home',
     tabBarIcon: ({ focused, tintColor }) => (
       <Image
         style={[styles.icon, { tintColor: focused ? tintColor : 'gray' }]}
-        source={require('../images/house.png')}
+        source={require('../../images/home.png')}
       />
     )
   }
 
-  goBack = () => {
-    this.props.dispatch(NavigationActions.back({ routeName: 'Account' }))
+  gotoDetail = () => {
+    this.props.dispatch(NavigationActions.navigate({ routeName: 'Detail' }))
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Button text="Go Back" onPress={this.goBack} />
+        <Button text="Goto Detail test  aaa" onPress={this.gotoDetail} />
       </View>
     )
   }
@@ -38,9 +38,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   icon: {
-    width: 32,
-    height: 32
+    width: 25,
+    height: 25
   }
 })
 
-export default Detail
+export default Home

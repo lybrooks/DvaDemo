@@ -1,62 +1,100 @@
 import React, { PureComponent } from 'react'
-import { BackHandler, Animated, Easing } from 'react-native'
+import {
+  BackHandler,
+  Animated,
+  Easing,
+  Platform,
+  StatusBar,
+  Linking,
+  DeviceEventEmitter
+} from 'react-native'
+import DeviceInfo from 'react-native-device-info'
 import {
   createStackNavigator,
   createBottomTabNavigator,
-  NavigationActions,
+  NavigationActions
 } from 'react-navigation'
 import {
   reduxifyNavigator,
   createReactNavigationReduxMiddleware,
-  createNavigationReducer,
+  createNavigationReducer
 } from 'react-navigation-redux-helpers'
 import { connect } from 'react-redux'
 import codePush from 'react-native-code-push'
 import Loading from './containers/Loading'
 import Login from './containers/Login'
+import Message from './containers/Message'
 import Home from './containers/Home'
 import Account from './containers/Account'
+import Course from './containers/Course'
 import Detail from './containers/Detail'
+import Mine from './containers/Mine'
+// 状态栏颜色导航栏样式
+StatusBar.setBarStyle('light-content')
+StatusBar.setHidden(false)
+StatusBar.setTranslucent(true)
+Platform.OS == 'android' && StatusBar.setBackgroundColor('rgba(0, 0, 0, 0.20)')
 
 const HomeNavigator = createBottomTabNavigator({
   Home: { screen: Home },
-  Account: { screen: Account },
+  Message: { screen: Message },
+  Course: { screen: Course },
+  Mine: { screen: Mine }
 })
 
-HomeNavigator.navigationOptions = ({ navigation }) => {
-  const { routeName } = navigation.state.routes[navigation.state.index]
-
-  return {
-    headerTitle: routeName,
+HomeNavigator.navigationOptions = ({ navigation }) => ({
+  title: navigation.state.routeName,
+  headerStyle: {
+    backgroundColor: '#209F68',
+    ...Platform.select({
+      android: {
+        paddingTop:
+          DeviceInfo.getSystemVersion() >= '5.0.0'
+            ? StatusBar.currentHeight
+            : 0,
+        height:
+          DeviceInfo.getSystemVersion() >= '5.0.0'
+            ? 46 + StatusBar.currentHeight
+            : 46
+      }
+    })
+  },
+  headerTintColor: '#fff',
+  headerTitleStyle: {
+    fontWeight: 'bold'
   }
-}
+})
 
 const MainNavigator = createStackNavigator(
   {
     HomeNavigator: { screen: HomeNavigator },
-    Detail: { screen: Detail },
+    Detail: { screen: Detail }
   },
   {
-    headerMode: 'float',
+    headerMode: 'float'
   }
 )
 
 const AppNavigator = createStackNavigator(
   {
     Main: { screen: MainNavigator },
-    Login: { screen: Login },
+    Login: { screen: Login }
   },
   {
     headerMode: 'none',
     mode: 'modal',
     navigationOptions: {
       gesturesEnabled: false,
+      headerTintColor: 'white',
+      headerStyle: {},
+      headerTruncatedBackTitle: '返回',
+      headerMode: Platform.OS === 'ios' ? 'screen' : 'float'
     },
     transitionConfig: () => ({
       transitionSpec: {
         duration: 300,
         easing: Easing.out(Easing.poly(4)),
-        timing: Animated.timing,
+        timing: Animated.timing
       },
       screenInterpolator: sceneProps => {
         const { layout, position, scene } = sceneProps
@@ -65,17 +103,17 @@ const AppNavigator = createStackNavigator(
         const height = layout.initHeight
         const translateY = position.interpolate({
           inputRange: [index - 1, index, index + 1],
-          outputRange: [height, 0, 0],
+          outputRange: [height, 0, 0]
         })
 
         const opacity = position.interpolate({
           inputRange: [index - 1, index - 0.99, index],
-          outputRange: [0, 1, 1],
+          outputRange: [0, 1, 1]
         })
 
         return { opacity, transform: [{ translateY }] }
-      },
-    }),
+      }
+    })
   }
 )
 
@@ -132,10 +170,9 @@ class Router extends PureComponent {
 Router = codePush(
   {
     checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
-    installMode: codePush.InstallMode.ON_NEXT_RESUME,
+    installMode: codePush.InstallMode.ON_NEXT_RESUME
     // updateDialog: {
     //   appendReleaseDescription: true,
-
     //   descriptionPrefix: '\n\n更新内容:\n',
     //   mandatoryContinueButtonLabel: '继续',
     //   mandatoryUpdateMessage: '找到一个更新，需要立即安装',

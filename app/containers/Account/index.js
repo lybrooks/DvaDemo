@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { StyleSheet, View, Image } from 'react-native'
 import { connect } from 'react-redux'
 
-import { Button } from '../components'
+import { Button } from '../../components'
 
-import { createAction, NavigationActions } from '../utils'
+import { createAction, NavigationActions } from '../../utils'
 
 @connect(({ app }) => ({ ...app }))
 class Account extends Component {
@@ -13,9 +13,9 @@ class Account extends Component {
     tabBarIcon: ({ focused, tintColor }) => (
       <Image
         style={[styles.icon, { tintColor: focused ? tintColor : 'gray' }]}
-        source={require('../images/person.png')}
+        source={require('../../images/message_default.png')}
       />
-    ),
+    )
   }
 
   gotoLogin = () => {
@@ -44,12 +44,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   icon: {
-    width: 32,
-    height: 32,
-  },
+    width: 25,
+    height: 25
+  }
 })
 
 export default Account

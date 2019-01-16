@@ -2,18 +2,18 @@ import React, { Component } from 'react'
 import { StyleSheet, View, Image } from 'react-native'
 import { connect } from 'react-redux'
 
-import { Button } from '../components'
+import { Button } from '../../components'
 
-import { NavigationActions } from '../utils'
+import { NavigationActions } from '../../utils'
 
 @connect()
-class Detail extends Component {
+class Mine extends Component {
   static navigationOptions = {
-    tabBarLabel: 'Detail',
+    tabBarLabel: 'Mine',
     tabBarIcon: ({ focused, tintColor }) => (
       <Image
         style={[styles.icon, { tintColor: focused ? tintColor : 'gray' }]}
-        source={require('../images/house.png')}
+        source={require('../../images/mine.png')}
       />
     )
   }
@@ -38,9 +38,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   icon: {
-    width: 32,
-    height: 32
+    width: 25,
+    height: 25
   }
 })
 
-export default Detail
+export default Mine
