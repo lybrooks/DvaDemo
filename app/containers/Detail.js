@@ -15,7 +15,7 @@ class Detail extends Component {
         style={[styles.icon, { tintColor: focused ? tintColor : 'gray' }]}
         source={require('../images/house.png')}
       />
-    )
+    ),
   }
 
   goBack = () => {
@@ -35,12 +35,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   icon: {
     width: 32,
-    height: 32
-  }
+    height: 32,
+  },
 })
 
 export default Detail

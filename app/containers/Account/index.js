@@ -15,7 +15,7 @@ class Account extends Component {
         style={[styles.icon, { tintColor: focused ? tintColor : 'gray' }]}
         source={require('../../images/message_default.png')}
       />
-    )
+    ),
   }
 
   gotoLogin = () => {
@@ -44,12 +44,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   icon: {
     width: 25,
-    height: 25
-  }
+    height: 25,
+  },
 })
 
 export default Account

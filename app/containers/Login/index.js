@@ -9,7 +9,7 @@ import { createAction, NavigationActions } from '../../utils'
 @connect(({ app }) => ({ ...app }))
 class Login extends Component {
   static navigationOptions = {
-    title: 'Login'
+    title: 'Login',
   }
 
   onLogin = () => {
@@ -46,18 +46,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   close: {
     position: 'absolute',
     right: 10,
-    top: 30
+    top: 30,
   },
   icon: {
     width: 25,
     height: 25,
-    tintColor: 'gray'
-  }
+    tintColor: 'gray',
+  },
 })
 
 export default Login

@@ -6,18 +6,18 @@ import {
   Platform,
   StatusBar,
   Linking,
-  DeviceEventEmitter
+  DeviceEventEmitter,
 } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
 import {
   createStackNavigator,
   createBottomTabNavigator,
-  NavigationActions
+  NavigationActions,
 } from 'react-navigation'
 import {
   reduxifyNavigator,
   createReactNavigationReduxMiddleware,
-  createNavigationReducer
+  createNavigationReducer,
 } from 'react-navigation-redux-helpers'
 import { connect } from 'react-redux'
 import codePush from 'react-native-code-push'
@@ -39,7 +39,7 @@ const HomeNavigator = createBottomTabNavigator({
   Home: { screen: Home },
   Message: { screen: Message },
   Course: { screen: Course },
-  Mine: { screen: Mine }
+  Mine: { screen: Mine },
 })
 
 HomeNavigator.navigationOptions = ({ navigation }) => ({
@@ -55,30 +55,30 @@ HomeNavigator.navigationOptions = ({ navigation }) => ({
         height:
           DeviceInfo.getSystemVersion() >= '5.0.0'
             ? 46 + StatusBar.currentHeight
-            : 46
-      }
-    })
+            : 46,
+      },
+    }),
   },
   headerTintColor: '#fff',
   headerTitleStyle: {
-    fontWeight: 'bold'
-  }
+    fontWeight: 'bold',
+  },
 })
 
 const MainNavigator = createStackNavigator(
   {
     HomeNavigator: { screen: HomeNavigator },
-    Detail: { screen: Detail }
+    Detail: { screen: Detail },
   },
   {
-    headerMode: 'float'
+    headerMode: 'float',
   }
 )
 
 const AppNavigator = createStackNavigator(
   {
     Main: { screen: MainNavigator },
-    Login: { screen: Login }
+    Login: { screen: Login },
   },
   {
     headerMode: 'none',
@@ -88,13 +88,13 @@ const AppNavigator = createStackNavigator(
       headerTintColor: 'white',
       headerStyle: {},
       headerTruncatedBackTitle: '返回',
-      headerMode: Platform.OS === 'ios' ? 'screen' : 'float'
+      headerMode: Platform.OS === 'ios' ? 'screen' : 'float',
     },
     transitionConfig: () => ({
       transitionSpec: {
         duration: 300,
         easing: Easing.out(Easing.poly(4)),
-        timing: Animated.timing
+        timing: Animated.timing,
       },
       screenInterpolator: sceneProps => {
         const { layout, position, scene } = sceneProps
@@ -103,17 +103,17 @@ const AppNavigator = createStackNavigator(
         const height = layout.initHeight
         const translateY = position.interpolate({
           inputRange: [index - 1, index, index + 1],
-          outputRange: [height, 0, 0]
+          outputRange: [height, 0, 0],
         })
 
         const opacity = position.interpolate({
           inputRange: [index - 1, index - 0.99, index],
-          outputRange: [0, 1, 1]
+          outputRange: [0, 1, 1],
         })
 
         return { opacity, transform: [{ translateY }] }
-      }
-    })
+      },
+    }),
   }
 )
 
@@ -170,7 +170,7 @@ class Router extends PureComponent {
 Router = codePush(
   {
     checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
-    installMode: codePush.InstallMode.ON_NEXT_RESUME
+    installMode: codePush.InstallMode.ON_NEXT_RESUME,
     // updateDialog: {
     //   appendReleaseDescription: true,
     //   descriptionPrefix: '\n\n更新内容:\n',
